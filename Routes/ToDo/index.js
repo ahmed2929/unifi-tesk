@@ -28,6 +28,10 @@ router.get(
     "/",
     ToDoController.GetToDo
 );
+router.get(
+    "/for/user",
+    ToDoController.GetToDoForSpecificUser
+);
 
 
 module.exports = router;

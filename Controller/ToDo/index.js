@@ -3,7 +3,10 @@ const {
   errorResMsg
 } = require("../../Utils/Request/index");
 const {getUser} =require("../../Services/User/index")
-const {AddToDo,UpdateToDoById,DeleteToDoById,GetToDoById,GetToDos} =require("../../DB/Functions/Todo/index")
+const {AddToDo,UpdateToDoById,DeleteToDoById,GetToDoById,GetToDos,GetToDoByUserId} =require("../../DB/Functions/Todo/index");
+const { default: mongoose } = require("mongoose");
+
+
   exports.CreateToDo = async (req, res) => {
  
     try {
@@ -112,4 +115,31 @@ const {AddToDo,UpdateToDoById,DeleteToDoById,GetToDoById,GetToDos} =require("../
     }
   };
 
-  
+  exports.GetToDoForSpecificUser = async (req, res) => {
+ 
+    try {
+      let {
+        id,
+      }=req.query
+        if(!id){
+        return errorResMsg(res, 400, "User_id_required");
+        }
+      
+        const user =await getUser(id)
+        if(!user){
+          return errorResMsg(res, 400, "User_not_found");
+        }
+        // pagination logic needs to be implemented
+        const ToDos = await GetToDoByUserId(id)
+        if(!ToDos){
+          return errorResMsg(res, 400, "ToDos_not_found");
+        }
+        // return successful response
+        return successResMsg(res, 200, {data:ToDos});
+   
+    } catch (err) {
+      // return error response
+      console.log(err)
+      return errorResMsg(res, 500, err);
+    }
+  };

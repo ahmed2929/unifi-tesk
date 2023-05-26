@@ -100,10 +100,28 @@ const GetToDos =async ()=>{
     }
 
 }
+const GetToDoByUserId =async (userId)=>{
+    try {
+        const todo = await ToDo.find({Owner:userId})
+        if(todo){
+            return todo
+         }else{
+            return []
+         }
+
+        
+    } catch (error) {
+        console.log(error)
+        return false
+        
+    }
+
+}
 module.exports={
     AddToDo,
     UpdateToDoById,
     DeleteToDoById,
     GetToDoById,
-    GetToDos
+    GetToDos,
+    GetToDoByUserId
 }
