@@ -13,6 +13,9 @@ app=SetMiddleWares(app)
 app.listen(port,()=>{
     console.log(`server is running on port ${port}`)
 })
+/*
+Note the RegisterDummyUserForTesting is for testing and it prints the user id so that u can test with user
+*/
 RegisterDummyUserForTesting()
 .then(user=>{
     console.log("dummy user id is :",user._id.toString())
