@@ -1,0 +1,108 @@
+const ToDo =require("../../DB/Schema/Users")
+
+const AddToDo =async (todo)=>{
+    try {
+        const newTodo = await ToDo.Create({
+            Title:todo.Title,
+            Description:todo.Description,
+            Owner:todo.Owner
+         })
+         if(newTodo){
+            return newTodo
+         }else{
+            return false
+         }
+        
+    } catch (error) {
+        console.log(error)
+        return false
+        
+    }
+
+
+
+}
+
+const UpdateToDoById =async (todoId,todo)=>{
+    try {
+        const todoData = await ToDo.findById(todoId)
+        if(todoData){
+            todoData.Title=todo.Title||todoData.Title,
+            todoData.Description=todo.Description||todoData.Description,
+            await todoData.save()
+            return todoData
+         }else{
+            return false
+         }
+
+        
+    } catch (error) {
+        console.log(error)
+        return false
+        
+    }
+
+}
+
+const DeleteToDoById =async (todoId)=>{
+    try {
+        const todo = await ToDo.findById(todoId)
+        if(todo){
+            await todo.remove()
+            return true
+         }else{
+            return false
+         }
+
+        
+    } catch (error) {
+        console.log(error)
+        return false
+        
+    }
+
+}
+
+const GetToDoById =async (todoId)=>{
+    try {
+        const todo = await ToDo.findById(todoId).populate("Owner").select("firstName lastName email")
+        if(todo){
+            return todo
+         }else{
+            return false
+         }
+
+        
+    } catch (error) {
+        console.log(error)
+        return false
+        
+    }
+
+}
+
+const GetToDos =async ()=>{
+    try {
+        // pagination logic needs to be implemented
+        const ToDos = await ToDo.find().populate("Owner").select("firstName lastName email")
+        if(ToDos){
+            return ToDos
+         }else{
+            return []
+         }
+
+        
+    } catch (error) {
+        console.log(error)
+        return false
+        
+    }
+
+}
+module.exports={
+    AddToDo,
+    UpdateToDoById,
+    DeleteToDoById,
+    GetToDoById,
+    GetToDos
+}
