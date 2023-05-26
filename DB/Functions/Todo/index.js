@@ -1,4 +1,4 @@
-const ToDo =require("../../DB/Schema/Users")
+const ToDo =require("../../Schema/Users")
 
 const AddToDo =async (todo)=>{
     try {
