@@ -23,10 +23,10 @@ const {AddToDo,UpdateToDoById,DeleteToDoById,GetToDoById,GetToDos} =require("../
         Title,
       })
       if(!todo){
-        return errorResMsg(res, 400, req.t("ToDo_not_created"));
+        return errorResMsg(res, 400, "ToDo_not_created");
       }
       // return successful response
-      return successResMsg(res, 200, {message:req.t("ToDo_Created"),data:todo});
+      return successResMsg(res, 200, {message:"ToDo_Created",data:todo});
       
     } catch (err) {
       // return error response
@@ -49,10 +49,10 @@ const {AddToDo,UpdateToDoById,DeleteToDoById,GetToDoById,GetToDos} =require("../
         Title,
       })
       if(!UpdatedTodo){
-        return errorResMsg(res, 400, req.t("ToDo_Can_not_be_edited"));
+        return errorResMsg(res, 400, "ToDo_Can_not_be_edited");
       }
       // return successful response
-      return successResMsg(res, 200, {message:req.t("ToDo_edited"),data:UpdatedTodo});
+      return successResMsg(res, 200, {message:"ToDo_edited",data:UpdatedTodo});
       
     } catch (err) {
       // return error response
@@ -70,10 +70,10 @@ const {AddToDo,UpdateToDoById,DeleteToDoById,GetToDoById,GetToDos} =require("../
 
       const DeletedToDo = await DeleteToDoById(todoId)
       if(!DeletedToDo){
-        return errorResMsg(res, 400, req.t("ToDo_Can_not_be_deleted"));
+        return errorResMsg(res, 400, "ToDo_Can_not_be_deleted");
       }
       // return successful response
-      return successResMsg(res, 200, {message:req.t("ToDo_deleted")});
+      return successResMsg(res, 200, {message:"ToDo_deleted"});
       
     } catch (err) {
       // return error response
@@ -91,7 +91,7 @@ const {AddToDo,UpdateToDoById,DeleteToDoById,GetToDoById,GetToDos} =require("../
       if(id){
         const todo = await GetToDoById(id)
         if(!todo){
-          return errorResMsg(res, 400, req.t("ToDo_not_found"));
+          return errorResMsg(res, 400, "ToDo_not_found");
         }
         // return successful response
         return successResMsg(res, 200, {data:todo});
@@ -99,7 +99,7 @@ const {AddToDo,UpdateToDoById,DeleteToDoById,GetToDoById,GetToDos} =require("../
         // pagination logic needs to be implemented
         const ToDos = await GetToDos()
         if(!ToDos){
-          return errorResMsg(res, 400, req.t("ToDos_not_found"));
+          return errorResMsg(res, 400, "ToDos_not_found");
         }
         // return successful response
         return successResMsg(res, 200, {data:ToDos});

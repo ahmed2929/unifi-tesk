@@ -1,12 +1,13 @@
-const ToDo =require("../../Schema/Users")
+const ToDo =require("../../Schema/ToDo")
 
 const AddToDo =async (todo)=>{
     try {
-        const newTodo = await ToDo.Create({
+        const newTodo = await ToDo.create({
             Title:todo.Title,
             Description:todo.Description,
             Owner:todo.Owner
          })
+
          if(newTodo){
             return newTodo
          }else{
@@ -65,7 +66,7 @@ const DeleteToDoById =async (todoId)=>{
 
 const GetToDoById =async (todoId)=>{
     try {
-        const todo = await ToDo.findById(todoId).populate("Owner").select("firstName lastName email")
+        const todo = await ToDo.findById(todoId).populate("Owner")
         if(todo){
             return todo
          }else{
@@ -84,7 +85,7 @@ const GetToDoById =async (todoId)=>{
 const GetToDos =async ()=>{
     try {
         // pagination logic needs to be implemented
-        const ToDos = await ToDo.find().populate("Owner").select("firstName lastName email")
+        const ToDos = await ToDo.find().populate("Owner")
         if(ToDos){
             return ToDos
          }else{

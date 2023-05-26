@@ -3,7 +3,7 @@ require('dotenv').config();
 const  {ConnectToDB} =require("./DB/Server/index")
 const SetMiddleWares=require('./Middleware/index')
 const port = process.env.PORT || 4000
-
+const User =require("./DB/Schema/Users")
 //Connect to DB
 ConnectToDB();
 app=SetMiddleWares(app)
@@ -12,4 +12,3 @@ app=SetMiddleWares(app)
 app.listen(port,()=>{
     console.log(`server is running on port ${port}`)
 })
-

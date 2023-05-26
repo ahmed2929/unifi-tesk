@@ -1,12 +1,13 @@
 const {
     body,
     validationResult,
+    check
 } = require('express-validator');
 
 exports.CreateToDo = () => {
     return [
-        body("title").notEmpty().withMessage("title_is_required"),
-        body("owner").notEmpty().withMessage("Owner_id_is_required").isMongoId().withMessage("invalid_user_id")
+        body("Title").notEmpty().withMessage("title_is_required"),
+        body("Owner").notEmpty().withMessage("Owner_id_is_required").isMongoId().withMessage("invalid_owner_id")
 
     ]
 }
@@ -38,13 +39,14 @@ exports.validate = (req, res, next) => {
         }
         const extractedErrors = []
         errors.array().map(err => extractedErrors.push({
-            [err.param]: req.t(err.msg)
+            [err.param]: err.msg
         }))
         return res.status(422).json({
             errors: extractedErrors,
         })
   
-    } catch {
+    } catch (error){
+        console.log(error)
         res.status(500).json({
             error: "unexpected error",
             status: "error"
